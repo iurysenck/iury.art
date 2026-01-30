@@ -998,10 +998,317 @@
             pointer-events: none;
             z-index: 0;
         }
+
+        /* Page Loader */
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--bg);
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .loader-text {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            overflow: hidden;
+        }
+
+        .loader-text span {
+            display: inline-block;
+            animation: loaderReveal 0.6s ease forwards;
+            opacity: 0;
+            transform: translateY(100%);
+        }
+
+        .loader-bar {
+            width: 200px;
+            height: 2px;
+            background: var(--border);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .loader-progress {
+            width: 0;
+            height: 100%;
+            background: var(--gradient);
+            animation: loaderProgress 2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes loaderReveal {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes loaderProgress {
+            to {
+                width: 100%;
+            }
+        }
+
+        .loader.loaded {
+            animation: loaderExit 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes loaderExit {
+            0% {
+                clip-path: inset(0 0 0 0);
+            }
+            100% {
+                clip-path: inset(0 0 100% 0);
+            }
+        }
+
+        /* Premium Text Animations */
+        .split-text {
+            overflow: hidden;
+            display: inline-block;
+        }
+
+        .split-text .char {
+            display: inline-block;
+            opacity: 0;
+            transform: translateY(100%) rotateX(-90deg);
+            transform-origin: center top;
+        }
+
+        .split-text.animate .char {
+            animation: charReveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes charReveal {
+            to {
+                opacity: 1;
+                transform: translateY(0) rotateX(0);
+            }
+        }
+
+        /* Image Reveal */
+        .img-reveal {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .img-reveal::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--bg);
+            transform: scaleX(1);
+            transform-origin: right;
+            transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .img-reveal.revealed::after {
+            transform: scaleX(0);
+        }
+
+        .img-reveal img {
+            transform: scale(1.3);
+            transition: transform 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .img-reveal.revealed img {
+            transform: scale(1);
+        }
+
+        /* Stagger Reveal */
+        .stagger-reveal {
+            opacity: 0;
+            transform: translateY(60px);
+        }
+
+        .stagger-reveal.active {
+            animation: staggerUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes staggerUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Line Draw */
+        .line-draw {
+            position: relative;
+        }
+
+        .line-draw::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: var(--accent);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .line-draw:hover::after {
+            transform: scaleX(1);
+        }
+
+        /* Premium Hover Effects */
+        .portfolio-item .portfolio-overlay {
+            transform: translateY(20px);
+        }
+
+        .portfolio-item:hover .portfolio-overlay {
+            opacity: 1;
+            transform: translateY(0);
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .portfolio-item::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(255,51,102,0.3) 0%, rgba(99,102,241,0.3) 100%);
+            opacity: 0;
+            transition: opacity 0.6s ease;
+            z-index: 1;
+        }
+
+        .portfolio-item:hover::before {
+            opacity: 1;
+        }
+
+        /* Service Card Premium */
+        .service-card {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.03), transparent);
+            transition: left 0.8s ease;
+        }
+
+        .service-card:hover::before {
+            left: 100%;
+        }
+
+        /* Smooth Section Transitions */
+        .section {
+            opacity: 0;
+            transform: translateY(80px);
+            transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .section.in-view {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Skill Pills Animation */
+        .skill {
+            opacity: 0;
+            transform: translateY(20px) scale(0.9);
+        }
+
+        .skills-wrap.active .skill {
+            animation: skillPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+
+        @keyframes skillPop {
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* Stats Counter Animation */
+        .stat-number {
+            opacity: 0;
+            transform: scale(0.5);
+        }
+
+        .stats.animate .stat-number {
+            animation: counterPop 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+
+        @keyframes counterPop {
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* Nav Premium */
+        nav {
+            transform: translateY(-100%);
+            animation: navSlide 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            animation-delay: 2.2s;
+        }
+
+        @keyframes navSlide {
+            to {
+                transform: translateY(0);
+            }
+        }
+
+        /* Marquee Glow */
+        .partners-wrap {
+            position: relative;
+        }
+
+        .partners-wrap::before,
+        .partners-wrap::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            width: 150px;
+            height: 100%;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .partners-wrap::before {
+            left: 0;
+            background: linear-gradient(90deg, var(--bg), transparent);
+        }
+
+        .partners-wrap::after {
+            right: 0;
+            background: linear-gradient(-90deg, var(--bg), transparent);
+        }
     </style>
 </head>
 
 <body>
+    <!-- Page Loader -->
+    <div class="loader" id="loader">
+        <div class="loader-text">
+            <span style="animation-delay: 0.1s">i</span><span style="animation-delay: 0.15s">u</span><span style="animation-delay: 0.2s">r</span><span style="animation-delay: 0.25s">y</span><span style="animation-delay: 0.3s">.</span><span style="animation-delay: 0.35s">a</span><span style="animation-delay: 0.4s">r</span><span style="animation-delay: 0.45s">t</span>
+        </div>
+        <div class="loader-bar">
+            <div class="loader-progress"></div>
+        </div>
+    </div>
+
     <!-- Custom Cursor -->
     <div class="cursor"></div>
     <div class="cursor-dot"></div>
@@ -1574,6 +1881,140 @@
         window.addEventListener('resize', resizeCanvas);
         resizeCanvas();
         animateParticles();
+
+        // =====================
+        // PREMIUM ANIMATIONS
+        // =====================
+
+        // Page Loader
+        const loader = document.getElementById('loader');
+        
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                loader.classList.add('loaded');
+                document.body.style.overflow = 'auto';
+                
+                // Trigger hero animations after loader
+                setTimeout(() => {
+                    animateHeroText();
+                    document.querySelector('.stats').classList.add('animate');
+                }, 500);
+            }, 2000);
+        });
+
+        // Animate Hero Title Characters
+        function animateHeroText() {
+            const heroTitle = document.querySelector('.hero-title');
+            const words = heroTitle.querySelectorAll('.word');
+            
+            words.forEach((word, wordIndex) => {
+                const text = word.textContent;
+                word.innerHTML = '';
+                
+                text.split('').forEach((char, charIndex) => {
+                    const span = document.createElement('span');
+                    span.className = 'char';
+                    span.textContent = char;
+                    span.style.animationDelay = `${(wordIndex * 0.3) + (charIndex * 0.05)}s`;
+                    word.appendChild(span);
+                });
+                
+                word.classList.add('split-text', 'animate');
+            });
+        }
+
+        // Section In-View Observer
+        const sectionObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('in-view');
+                    
+                    // Trigger skill animations
+                    const skillsWrap = entry.target.querySelector('.skills-wrap');
+                    if (skillsWrap) {
+                        setTimeout(() => {
+                            skillsWrap.classList.add('active');
+                            skillsWrap.querySelectorAll('.skill').forEach((skill, i) => {
+                                skill.style.animationDelay = `${i * 0.1}s`;
+                            });
+                        }, 300);
+                    }
+                    
+                    // Trigger image reveal
+                    const imgReveal = entry.target.querySelector('.about-image');
+                    if (imgReveal) {
+                        setTimeout(() => {
+                            imgReveal.classList.add('img-reveal', 'revealed');
+                        }, 200);
+                    }
+                }
+            });
+        }, { threshold: 0.15 });
+
+        document.querySelectorAll('.section').forEach(section => {
+            sectionObserver.observe(section);
+        });
+
+        // Portfolio Items Stagger
+        const portfolioObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const items = entry.target.querySelectorAll('.portfolio-item');
+                    items.forEach((item, i) => {
+                        item.classList.add('stagger-reveal');
+                        setTimeout(() => {
+                            item.classList.add('active');
+                        }, i * 150);
+                    });
+                }
+            });
+        }, { threshold: 0.1 });
+
+        const portfolioGrid = document.querySelector('.portfolio-grid');
+        if (portfolioGrid) {
+            portfolioObserver.observe(portfolioGrid);
+        }
+
+        // Services Stagger
+        const servicesObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const cards = entry.target.querySelectorAll('.service-card');
+                    cards.forEach((card, i) => {
+                        card.classList.add('stagger-reveal');
+                        setTimeout(() => {
+                            card.classList.add('active');
+                        }, i * 100);
+                    });
+                }
+            });
+        }, { threshold: 0.1 });
+
+        const servicesGrid = document.querySelector('.services-grid');
+        if (servicesGrid) {
+            servicesObserver.observe(servicesGrid);
+        }
+
+        // Contact Links Line Draw
+        document.querySelectorAll('.contact-link').forEach(link => {
+            link.classList.add('line-draw');
+        });
+
+        // Smooth Scroll with Progress
+        let scrollProgress = 0;
+        window.addEventListener('scroll', () => {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            scrollProgress = (winScroll / height) * 100;
+            
+            // Parallax for sections
+            document.querySelectorAll('.section.in-view').forEach(section => {
+                const rect = section.getBoundingClientRect();
+                const speed = 0.1;
+                const yPos = rect.top * speed;
+                section.style.transform = `translateY(${yPos}px)`;
+            });
+        });
     </script>
 </body>
 
