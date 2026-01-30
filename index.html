@@ -1087,6 +1087,13 @@
             animation: charReveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
+        .split-text.accent .char {
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
         @keyframes charReveal {
             to {
                 opacity: 1;
@@ -1909,6 +1916,7 @@
             
             words.forEach((word, wordIndex) => {
                 const text = word.textContent;
+                const hasAccent = word.classList.contains('accent');
                 word.innerHTML = '';
                 
                 text.split('').forEach((char, charIndex) => {
@@ -1920,6 +1928,9 @@
                 });
                 
                 word.classList.add('split-text', 'animate');
+                if (hasAccent) {
+                    word.classList.add('accent');
+                }
             });
         }
 
